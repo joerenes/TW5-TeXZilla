@@ -1,0 +1,14 @@
+{
+	"tiddlers": [
+		{
+			"file": "TexZilla-min.js",
+			"fields": {
+				"type": "application/javascript",
+				"title": "$:/plugins/joerenes/TW5-TeXZilla/TeXZilla-min.js",
+				"module-type": "library"
+			},
+			"prefix": "(function(document) {\n",
+			"suffix": "\n})($tw.node ? $tw.fakeDocument : window.document)\n"
+		}
+	]
+}

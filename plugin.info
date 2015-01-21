@@ -1,0 +1,9 @@
+{
+	"title": "$:/plugins/joerenes/TW5-TeXZilla",
+	"description": "Mathematics typesetting plugin wrapping TeXZilla, a LaTeX to MathML parser",
+	"author": "JoeRenes",
+	"version": "0.0.1",
+	"core-version": ">=5.0.8",
+	"source": "https://github.com/joerenes/TW5-TeXZilla",
+	"plugin-type": "plugin"
+}
