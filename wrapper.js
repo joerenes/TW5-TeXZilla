@@ -34,14 +34,19 @@ LaTeXWidget.prototype.render = function(parent,nextSibling) {
 	this.execute();
 	// Get the source text
 	var text = this.getAttribute("text",this.parseTreeNode.text || "");
+	var style = this.getAttribute("style",this.parseTreeNode.text || "");
+	var blockflag = false;
+	if(style == "block") {
+		var blockflag = true;
+	} else {}
 	// Render it into MathML 
 	var elemnt = this.document.createElement("span"); 
 	try {
 		if($tw.browser) {
-			// false means inline, true would be display
-			var elemnt = texzilla.toMathML(text,false);
+			// false means inline, true would be display / block
+			var elemnt = texzilla.toMathML(text,blockflag);
 		} else {
-			var elemnt = this.document.createElement("span");
+			span.innerHTML = texzilla.toMathMLString(text,blockflag);
 		}
 	} catch(ex) {
 		elemnt.className = "tc-error";

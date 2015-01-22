@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/joerenes/TW5-TexZilla/latex-parser.js
+title: $:/plugins/joerenes/TW5-TexZilla/latex-parser-inline.js
 type: application/javascript
 module-type: wikirule
 
@@ -23,7 +23,7 @@ This wikiparser can be modified using the rules eg:
 /*global $tw: false */
 "use strict";
 
-exports.name = "latex-parser";
+exports.name = "latex-parser-inline";
 exports.types = {inline: true};
 
 exports.init = function(parser) {
@@ -54,7 +54,12 @@ exports.parse = function() {
 			text: {
 				type: "text",
 				value: text
-			}}
+			},
+			style: {
+				type: "text",
+				value: "inline"
+			}
+		}
 	}];
 };
 
