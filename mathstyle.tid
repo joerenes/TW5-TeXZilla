@@ -1,0 +1,11 @@
+tags: [[$:/tags/Stylesheet]]
+title: $:/plugins/joerenes/TW5-TeXZilla/mathstyle
+type: text/css
+
+html math[display="block"] {
+	font-size: 120%;
+}
+
+html math {
+	font-size: 110%;
+}
