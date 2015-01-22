@@ -1,3 +1,7 @@
 # TW5-TeXZilla
 
-TiddlyWiki5 plugin for parsing LaTeX into MathML. Based on the KaTeX plugin, this plugin adds a latex widget responsible for storing LaTeX and rendering it to MathML, as well as an extension to the wikiText markup to comprehend the $$ delimiter as signifying a latex widget. (The KaTeX plugin outputs HTML+CSS. MathJax can do either HTML+CSS or MathML, and supports a much wider set of LaTeX, but is slow. Moreover, I believe it is not really integrated into tiddlywiki in the sense that it actually just runs at the document root, converting whatever it thinks needs converting. So, tiddlywiki itself isn't aware of some of its contents being latex, as there's no widget.)
+TiddlyWiki5 plugin for parsing LaTeX into MathML, using the TeXZilla javascript parser. Based on the official KaTeX plugin. In contrast to KaTeX, TeXZilla supports a larger set of LaTeX commands (similar to itex2MML). 
+
+As in the KaTeX plugin, this plugin adds a latex widget responsible for storing LaTeX and rendering it to MathML, as well as an extension to the wikiText markup to comprehend both $$...$$ and \[...\] delimiters as respectively signifying inline or display latex. 
+
+This plugin is experimental, though I believe it conforms to the TiddlyWiki plugin standard. On the other hand, the plugin is only useful for situations where the browser can interpret MathML (i.e. Firefox), and this is at odds with the TiddlyWiki goal of portability. One can presumably get around this by running the MathJax plugin to convert MathML to HTML+CSS.
