@@ -1,12 +1,13 @@
 /*\
-title: $:/plugins/joerenes/TW5-TexZilla/latex-parser-inline.js
+title: $:/plugins/joerenes/TW5-TexZilla/latex-parser.js
 type: application/javascript
 module-type: wikirule
 
-Wiki text inline rule for LaTeX. For example:
+Wiki text rule for LaTeX, both inline and display. For example:
 
 ```
-	$$latex-goes-here$$
+	$$latex-goes-here$$   	inline
+	\[more-latex\]			display
 ```
 
 This wikiparser can be modified using the rules eg:
@@ -22,20 +23,34 @@ This wikiparser can be modified using the rules eg:
 /*jslint node: true, browser: true */
 /*global $tw: false */
 "use strict";
+//var displayopen = '\\\[',
+//	displayclose = '\\\]',
+//    inlinestring = '\$\$';
 
-exports.name = "latex-parser-inline";
-exports.types = {inline: true};
+exports.name = "latex-parser";
+exports.types = {inline: true}; // this is confusing; but this inline is setting the form of this wikitext parser.
 
 exports.init = function(parser) {
 	this.parser = parser;
 	// Regexp to match
-	this.matchRegExp = /\$\$(?!\$)/mg;
+	this.matchRegExp = /\\\[|\$\$/mg; // just escape regexp... new RegExp(displayopen + '|' + inlinestring,'mg'); 
 };
 
 exports.parse = function() {
+	// figure out which delimiter we're dealing with. the result of the first regex from init is stored in this.match
+	var openmatch = this.match[0],
+		displaystyle,
+		reEnd;
+
+	if(openmatch == '\$\$') {
+		displaystyle = "inline";
+		reEnd = /\$\$/mg;
+	} else {
+		displaystyle = "block";
+		reEnd = /\\\]/mg;
+	}
 	// Move past the match
 	this.parser.pos = this.matchRegExp.lastIndex;
-	var reEnd = /\$\$/mg;
 	// Look for the end marker
 	reEnd.lastIndex = this.parser.pos;
 	var match = reEnd.exec(this.parser.source),
@@ -57,7 +72,7 @@ exports.parse = function() {
 			},
 			style: {
 				type: "text",
-				value: "inline"
+				value: displaystyle
 			}
 		}
 	}];
