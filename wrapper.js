@@ -13,11 +13,20 @@ Wrapper for `TeXZilla-min.js` that provides a `<$latex>` widget.
 "use strict";
 
 var texzilla = require("$:/plugins/joerenes/TW5-TeXZilla/TeXZilla-min.js"),
+	macroparser = require("$:/plugins/joerenes/TW5-TeXZilla/macro-parser.js"),
+	//Wiki = require("$:/core/modules/wiki.js"),
 	Widget = require("$:/core/modules/widgets/widget.js").widget;
 
 var LaTeXWidget = function(parseTreeNode,options) {
 	this.initialise(parseTreeNode,options);
 };
+
+/*
+Load macros from LaTeX Macros tiddler
+*/
+var macrolist = $tw.wiki.getTiddlerText("LaTeX Macros").toString().split('\n');
+// this doesn't seem to notice changes to the tiddler.
+// also, we aren't doing any error-handling...
 
 /*
 Inherit from the base widget class
@@ -32,13 +41,12 @@ LaTeXWidget.prototype.render = function(parent,nextSibling) {
 	this.parentDomNode = parent;
 	this.computeAttributes();
 	this.execute();
-	// Get the source text
+	// Get the source text and figure out the displaystyle
 	var text = this.getAttribute("text",this.parseTreeNode.text || "");
 	var style = this.getAttribute("style",this.parseTreeNode.text || "");
-	var blockflag = false;
-	if(style == "block") {
-		var blockflag = true;
-	} else {}
+	var blockflag = (style == "block") ? true:false;
+	// expand macros
+	text = macroparser.expandLaTeXmacros(text,macrolist);
 	// Render it into MathML 
 	var elemnt = this.document.createElement("span"); 
 	try {
