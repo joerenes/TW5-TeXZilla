@@ -24,7 +24,7 @@ var LaTeXWidget = function(parseTreeNode,options) {
 /*
 Load macros from LaTeX Macros tiddler
 */
-var macrolist = $tw.wiki.getTiddlerText("LaTeX Macros").toString().split('\n');
+//var blah = $tw.wiki.getTiddlerText("Nonexist");
 // this doesn't seem to notice changes to the tiddler.
 // also, we aren't doing any error-handling...
 
@@ -45,8 +45,13 @@ LaTeXWidget.prototype.render = function(parent,nextSibling) {
 	var text = this.getAttribute("text",this.parseTreeNode.text || "");
 	var style = this.getAttribute("style",this.parseTreeNode.text || "");
 	var blockflag = (style == "block") ? true:false;
-	// expand macros
-	text = macroparser.expandLaTeXmacros(text,macrolist);
+	// expand macros, after loading them, if they are present
+	var macrocont = $tw.wiki.getTiddlerText("LaTeX Macros");
+	if (typeof macrocont === "undefined") {
+		; // no macros
+	} else {
+		text = macroparser.expandLaTeXmacros(text,macrocont.toString().split('\n'));
+	}
 	// Render it into MathML 
 	var elemnt = this.document.createElement("span"); 
 	try {
