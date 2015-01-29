@@ -57,13 +57,13 @@ LaTeXWidget.prototype.render = function(parent,nextSibling) {
 	try {
 		if($tw.browser) {
 			// false means inline, true would be display / block
-			var elemnt = texzilla.toMathML(text,blockflag);
+			var elemnt = texzilla.toMathML(text,blockflag,false,true);
 		} else {
-			span.innerHTML = texzilla.toMathMLString(text,blockflag);
+			elemnt.innerHTML = texzilla.toMathMLString(text,blockflag,false,true);
 		}
 	} catch(ex) {
 		elemnt.className = "tc-error";
-		elemnt.textContent = ex;
+		elemnt.textContent = text;
 	}
 	// Insert it into the DOM
 	parent.insertBefore(elemnt,nextSibling);
