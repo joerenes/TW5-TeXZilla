@@ -2,6 +2,8 @@
 
 TiddlyWiki5 plugin for parsing LaTeX into MathML, using the TeXZilla javascript parser. Based on the official KaTeX plugin. In contrast to KaTeX, TeXZilla supports a larger set of LaTeX commands (similar to itex2MML). 
 
+See http://tw5-texzilla.tiddlyspot.com for a demo wiki.
+
 Usage: LaTeX commands can be used in wikiText by surrounding them with $$...$$ for inline mode or \\[...\\] for display mode. Parsing errors encountered by TeXZilla will show up as red-colored latex commands.
 
 Additionally, macros may be specified in the tiddler "LaTeX Macros". These should be formatted one macro 
