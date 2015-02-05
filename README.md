@@ -1,6 +1,6 @@
 # TW5-TeXZilla
 
-TiddlyWiki5 plugin for parsing LaTeX into MathML, using the TeXZilla javascript parser. Based on the official KaTeX plugin. In contrast to KaTeX, TeXZilla supports a larger set of LaTeX commands (similar to itex2MML). 
+TiddlyWiki5 plugin for parsing LaTeX into MathML, using the [TeXZilla](https://github.com/fred-wang/TeXZilla) javascript parser. Based on the official [KaTeX plugin](http://tiddlywiki.com/plugins/tiddlywiki/katex/). In contrast to [KaTeX](https://github.com/Khan/KaTeX), TeXZilla supports a larger set of LaTeX commands (similar to [itex2MML](https://golem.ph.utexas.edu/~distler/blog/itex2MML.html)). 
 
 See http://tw5-texzilla.tiddlyspot.com for a demo wiki.
 
