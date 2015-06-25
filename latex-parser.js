@@ -33,7 +33,7 @@ exports.types = {inline: true}; // this is confusing; but this inline is setting
 exports.init = function(parser) {
 	this.parser = parser;
 	// Regexp to match
-	this.matchRegExp = /\\\[|\$\$/mg; // just escape regexp... new RegExp(displayopen + '|' + inlinestring,'mg'); 
+	this.matchRegExp = /\\\[|\$/mg; // just escape regexp... new RegExp(displayopen + '|' + inlinestring,'mg');
 };
 
 exports.parse = function() {
@@ -42,9 +42,9 @@ exports.parse = function() {
 		displaystyle,
 		reEnd;
 
-	if(openmatch == '\$\$') {
+	if(openmatch == '\$') {
 		displaystyle = "inline";
-		reEnd = /\$\$/mg;
+		reEnd = /\$/mg;
 	} else {
 		displaystyle = "block";
 		reEnd = /\\\]/mg;
