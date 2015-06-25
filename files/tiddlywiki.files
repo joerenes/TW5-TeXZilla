@@ -1,7 +1,7 @@
 {
 	"tiddlers": [
 		{
-			"file": "TexZilla-min.js",
+			"file": "TeXZilla-min.js",
 			"fields": {
 				"type": "application/javascript",
 				"title": "$:/plugins/joerenes/TW5-TeXZilla/TeXZilla-min.js",
