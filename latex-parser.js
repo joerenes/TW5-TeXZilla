@@ -33,8 +33,17 @@ exports.types = {inline: true}; // this is confusing; but this inline is setting
 exports.init = function(parser) {
 	this.parser = parser;
 	// Regexp to match
-	this.matchRegExp = /\\\[|\$\$/mg; // just escape regexp... new RegExp(displayopen + '|' + inlinestring,'mg'); 
+	this.matchRegExp = /\\\[|\$\$|\\begin{math}|\\begin{equation}|\\begin{displaymath}|\\begin{equation\*}/mg; // just escape regexp... new RegExp(displayopen + '|' + inlinestring,'mg'); 
 };
+
+// Regular expressions contain special (meta) characters, and as such it is
+// dangerous to blindly pass an argument in the find function above without
+// pre-processing it to escape those characters. This is covered in the Mozilla
+// Developer Network's JavaScript Guide on Regular Expressions, where they
+// present the following utility function:
+function escapeRegExp(string) {
+	return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
 
 exports.parse = function() {
 	// figure out which delimiter we're dealing with. the result of the first regex from init is stored in this.match
@@ -42,13 +51,27 @@ exports.parse = function() {
 		displaystyle,
 		reEnd;
 
+    var environment = ['equation', 'displaymath', 'equation*'];
+
 	if(openmatch == '\$\$') {
 		displaystyle = "inline";
 		reEnd = /\$\$/mg;
-	} else {
+	} else if(openmatch == '\\begin{math}') {
+		displaystyle = "inline";
+		reEnd = /\\end{math}/mg;
+    } else if(openmatch == '\\\[') {
 		displaystyle = "block";
 		reEnd = /\\\]/mg;
-	}
+	} else {
+        for(var i = 0; i < environment.length; i++) {
+            if(openmatch == '\\begin{' + environment[i] + '}') {
+                displaystyle = "block";
+                reEnd = new RegExp(escapeRegExp('\\end{' + environment[i] + '}'), 'mg');
+                break;
+            }
+        }
+    }
+
 	// Move past the match
 	this.parser.pos = this.matchRegExp.lastIndex;
 	// Look for the end marker
